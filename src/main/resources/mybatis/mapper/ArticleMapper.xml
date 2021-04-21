@@ -4,7 +4,7 @@
 <mapper namespace="com.netback.myelementback.Dao.ArticleMapper">
 
     <insert id="insert" parameterType="com.netback.myelementback.Entity.Article">
-        insert into tArticle(nUserId,sArticle,sCreateUser,dCreateDate,dLastUpdateTime) values(#{nUserId},#{sArticle},#{nUserId},getdate(),getdate())
+        insert into tArticle(nUserId,sArticle,sCreateUser,dCreateDate,dLastUpdateTime) values(#{nUserId},#{sArticle},#{nUserId},CURDATE(),CURDATE())
     </insert>
 
     <select id="getById" parameterType="int" resultType="com.netback.myelementback.Entity.Article">
