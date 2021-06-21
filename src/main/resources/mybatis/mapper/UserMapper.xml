@@ -4,7 +4,7 @@
 <mapper namespace="com.netback.myelementback.Dao.UserMapper">
 
     <insert id="insert" parameterType="com.netback.myelementback.Entity.User">
-        insert into tUser(sUserNO,sUserName,sPassword,dLastLoginDate,dCreateDate) values(#{sUserNO},#{sUserName},#{sPassword},getdate(),getdate())
+        insert into tUser(sUserNO,sUserName,sPassword,dLastLoginDate,dCreateDate) values(#{sUserNO},#{sUserName},#{sPassword},now(),now())
     </insert>
 
     <select id="getById" parameterType="int" resultType="com.netback.myelementback.Entity.User">
@@ -12,10 +12,11 @@
     </select>
 
     <update id="update" parameterType="com.netback.myelementback.Entity.User">
-        update tUser set sUserName = #{sUserName}, where nUserId = #{nUserId}
+        update tUser set sUserName = #{sUserName}, sPassword = #{sPassword} where nUserId = #{nUserId}
     </update>
 
     <delete id="deleteById" parameterType="int">
         delete from tUser where sUserId = #{id}
     </delete>
+
 </mapper>

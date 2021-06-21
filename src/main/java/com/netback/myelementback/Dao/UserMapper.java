@@ -16,5 +16,4 @@ public interface UserMapper {
     public void update(User user);
     public void deleteById(int id);
 
-
 }
