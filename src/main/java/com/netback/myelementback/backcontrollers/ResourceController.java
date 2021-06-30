@@ -23,10 +23,10 @@ public class ResourceController {
         String resourceName = postData.getAsString("resourceName");
         String describe = postData.getAsString("describe");
         String resTag = postData.getAsString("resTag");
-        String category = postData.getAsString("Category");
-        int release = postData.getAsNumber("release");
+        Number category = postData.getAsNumber("Category");
+        Number release = postData.getAsNumber("release");
 
-
+        
 
         return true;
     }

@@ -4,18 +4,20 @@
 <mapper namespace="com.netback.myelementback.Dao.ResourceMapper">
 
     <insert id="insert" parameterType="com.netback.myelementback.Entity.Resource">
-        insert into tArticle(nUserId,sArticle,sCreateUser,dCreateDate,dLastUpdateTime) values(#{nUserId},#{sArticle},#{nUserId},CURDATE(),CURDATE())
+        insert into tResource(nId,sDescribe,sResTag,nCategory,nRelease,sResourceName,sPath,dCreateDate,sCreateUser)
+        values(#{nId},#{sDescribe},#{sResTag},#{nCategory},#{nRelease},#{sResourceName},#{sPath},CURDATE(),CURDATE())
     </insert>
 
     <select id="getById" parameterType="int" resultType="com.netback.myelementback.Entity.Resource">
-        select nUserId, sArticle, nRankId, dLastLoginDate from tArticle where nRankId = #{nRankId}
+        select nId, sDescribe, sPath, sResourceName from tResource where nId = #{nId}
     </select>
 
     <update id="update" parameterType="com.netback.myelementback.Entity.Resource">
-        update tArticle set sArticle = #{sArticle}, sChangeUser = #{nUserId}, dChangeDate = getDate() where nRankId = #{nRankId}
+        update tResource set sDescribe = #{sDescribe}, sResTag = #{sResTag}, nCategory = #{nCategory}
+        where nId = #{nId}
     </update>
 
     <delete id="deleteById" parameterType="int">
-        delete from tArticle where nRankId = #{nRankID}
+        delete from tResource where nId = #{nId}
     </delete>
 </mapper>
