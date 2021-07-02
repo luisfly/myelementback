@@ -1,6 +1,9 @@
 package com.netback.myelementback.backcontrollers;
 
+import com.netback.myelementback.Dao.ResourceMapper;
+import com.netback.myelementback.Entity.Resource;
 import net.minidev.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin("*")
 @RestController
 public class ResourceController {
+    @Autowired
+    private ResourceMapper mapper;
 
     /**
      *
@@ -26,7 +31,14 @@ public class ResourceController {
         Number category = postData.getAsNumber("Category");
         Number release = postData.getAsNumber("release");
 
-        
+        Resource entity = new Resource();
+        entity.setsResourceName(resourceName);
+        entity.setnCategory(category.intValue());
+        entity.setsDescribe(describe);
+        entity.setsResTag(resTag);
+        entity.setnRelease(release.intValue());
+
+        mapper.insert(entity);
 
         return true;
     }
