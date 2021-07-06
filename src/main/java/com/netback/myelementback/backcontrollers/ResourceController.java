@@ -38,6 +38,15 @@ public class ResourceController {
         entity.setsResTag(resTag);
         entity.setnRelease(release.intValue());
 
+        // 保存路径由后台保存返回
+        entity.setsPath("测试路径");
+
+        /* System.out.println("resouceName: " + resourceName);
+        System.out.println("describe: " + describe);
+        System.out.println("resTag: " + resTag);
+        System.out.println("category: " + category);
+        System.out.println("release: " + release); */
+
         mapper.insert(entity);
 
         return true;
@@ -48,8 +57,13 @@ public class ResourceController {
      * @return
      */
     @PostMapping("/api/DeleteResource")
-    public String DeleteResource(@RequestBody JSONObject postData) {
-        return "";
+    public boolean DeleteResource(@RequestBody JSONObject postData) {
+        Number resourceId = postData.getAsNumber("ResourceId");
+
+        // Resource entity = new Resource();
+        mapper.deleteById(resourceId.intValue());
+
+        return true;
     }
 
     @PostMapping("/api/RadioUpload")

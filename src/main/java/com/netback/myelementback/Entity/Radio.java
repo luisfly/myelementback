@@ -2,7 +2,7 @@ package com.netback.myelementback.Entity;
 
 import java.io.Serializable;
 
-public class Resource implements Serializable {
+public class Radio implements Serializable {
     private int nId;
     private String sResourceName;
     private String sDescribe;
