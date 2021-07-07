@@ -4,7 +4,7 @@ import com.netback.myelementback.Entity.Resource;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface RadioMapper {
+public interface VideoMapper {
 
     /**
      * 新建资源
