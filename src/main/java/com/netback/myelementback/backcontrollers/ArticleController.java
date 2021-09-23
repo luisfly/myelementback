@@ -12,17 +12,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-// 前端数据传输 api 处理控制器, 文章相关的 api
+/**
+ * 前端数据传输 api 处理控制器, 文章相关的 api
+ */
 @CrossOrigin("*")
 @RestController
 public class ArticleController {
 
-    // 从 bean 获取对应的 mapper 配置信息
+    /**
+     * 从 bean 获取对应的 mapper 配置信息
+     */
     @Autowired
     private ArticleMapper mapper;
 
-    // 文章新建、保存
-    // axios 前端传输的 data 会包装到 JSON 内，要使用JSONObject接受
+    /**
+     * 文章新建、保存
+     * axios 前端传输的 data 会包装到 JSON 内，要使用JSONObject接受
+     */
     @PostMapping("/api/saveArticle")
     public boolean SaveArticle(@RequestBody JSONObject postData) {
         String article = postData.getAsString("article");
@@ -58,7 +64,9 @@ public class ArticleController {
         return true;
     }
 
-    // 文章删除
+    /**
+     * 文章删除
+     */
     @PostMapping("/api/delArticle")
     public boolean DelArticle(@RequestBody JSONObject postData) {
         // Number userID = postData.getAsNumber("userID");
