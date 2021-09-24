@@ -18,7 +18,9 @@ import java.util.List;
 @RestController
 public class TestController {
 
-    // 从 bean 获取对应的 mapper 配置信息
+    /**
+     * 从 bean 获取对应的 mapper 配置信息
+     */
     @Autowired
     private ArticleMapper mapper;
 
