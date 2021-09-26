@@ -2,11 +2,9 @@ package com.netback.myelementback.backcontrollers;
 
 import com.netback.myelementback.Dao.ArticleMapper;
 import com.netback.myelementback.Entity.Article;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,7 @@ public class TestController {
     }
 
     @PostMapping("/api/TestListPanel")
-    public List<Article> TestListPanel(String[] query) {
+    public List<Article> TestListPanel(@RequestBody JSONObject postData) {
         List<Article> testlist = new ArrayList<Article>();
 
         Article test = new Article();
