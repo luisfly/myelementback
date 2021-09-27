@@ -2,6 +2,8 @@ package com.netback.myelementback.backcontrollers;
 
 import com.netback.myelementback.Dao.ArticleMapper;
 import com.netback.myelementback.Entity.Article;
+import com.netback.myelementback.Utils.CustResponseEntity;
+import com.netback.myelementback.Utils.UniformResponseHandler;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +30,7 @@ public class TestController {
     }
 
     @PostMapping("/api/TestListPanel")
-    public List<Article> TestListPanel(@RequestBody JSONObject postData) {
+    public CustResponseEntity TestListPanel(@RequestBody JSONObject postData) {
         List<Article> testlist = new ArrayList<Article>();
 
         Article test = new Article();
@@ -37,6 +39,7 @@ public class TestController {
 
         testlist.add(test);
 
-        return testlist;
+        // 附加返回信息
+        return new UniformResponseHandler<List>().sendSuccessResponse(testlist);
     }
 }

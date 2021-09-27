@@ -7,11 +7,18 @@ import lombok.Data;
  */
 
 // @Data
-public class ResponseEntity<T> {
+public class CustResponseEntity<T> {
     private boolean result;
     private int code;
     private String message;
     private T data;
+
+    public CustResponseEntity(boolean result, CodeAndMsg msg, T data) {
+        this.result = result;
+        this.code = msg.getCode();
+        this.message = msg.getMsg();
+        this.data = data;
+    }
 
     public boolean isResult() {
         return result;
