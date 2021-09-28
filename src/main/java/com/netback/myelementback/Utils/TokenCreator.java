@@ -9,11 +9,17 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
-// token 生成工具类
+/**
+ * token 生成工具类
+ */
 public class TokenCreator {
-    // token 过期时间
+    /**
+     * token 过期时间
+     */
     private static final long EXPIRE_DATE = 30 * 60 * 100000;
-    // token 密钥
+    /**
+     * token 密钥
+     */
     private static final String TOKEN_SECRET = "ZCEQIUBFKSJBFJH2020BQWE";
 
     public static String CreateToken(String username, String password) {

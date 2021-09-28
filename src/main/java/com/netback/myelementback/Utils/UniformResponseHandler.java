@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * 拦截 response 并添加必要信息
+ * @param <T>
+ */
 @RestControllerAdvice(annotations = RestController.class)
 public class UniformResponseHandler<T> {
 

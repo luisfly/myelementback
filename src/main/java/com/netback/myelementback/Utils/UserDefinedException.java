@@ -1,5 +1,8 @@
 package com.netback.myelementback.Utils;
 
+/**
+ * 自定义异常
+ */
 public class UserDefinedException extends RuntimeException{
     private CodeAndMsg exception;
 
