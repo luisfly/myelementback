@@ -5,7 +5,7 @@
 
     <insert id="insert" parameterType="com.netback.myelementback.Entity.Video">
         insert into tVideo(nId,sVideoName,sVideoPath,sUserNO,dCreateDate,sCreateUser,nTag)
-        values(#{nId},#{sVideoName},#{sVideoPath},#{sUserNO},now(),#{sCreateUser},0)
+        values(#{id},#{videoName},#{videoPath},#{userNO},now(),#{createUser},0)
     </insert>
 
     <select id="getById" parameterType="int" resultType="com.netback.myelementback.Entity.Video">
@@ -13,11 +13,11 @@
     </select>
 
     <update id="update" parameterType="com.netback.myelementback.Entity.Video">
-        update tVideo set sDescribe = #{sDescribe}, sResTag = #{sResTag}, nCategory = #{nCategory}
-        where nId = #{nId}
+        update tVideo set sDescribe = #{describe}, sResTag = #{resTag}, nCategory = #{category}
+        where nId = #{id}
     </update>
 
     <delete id="deleteById" parameterType="int">
-        delete from tVideo where nId = #{nId}
+        delete from tVideo where nId = #{id}
     </delete>
 </mapper>

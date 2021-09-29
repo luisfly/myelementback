@@ -4,18 +4,18 @@
 <mapper namespace="com.netback.myelementback.Dao.ArticleMapper">
 
     <insert id="insert" parameterType="com.netback.myelementback.Entity.Article">
-        insert into tArticle(nUserId,sArticle,sCreateUser,dCreateDate,dLastUpdateTime) values(#{nUserId},#{sArticle},#{nUserId},CURDATE(),CURDATE())
+        insert into tArticle(nUserId,sArticle,sCreateUser,dCreateDate,dLastUpdateTime) values(#{userId},#{article},#{userId},CURDATE(),CURDATE())
     </insert>
 
     <select id="getById" parameterType="int" resultType="com.netback.myelementback.Entity.Article">
-        select nUserId, sArticle, nRankId, dLastLoginDate from tArticle where nRankId = #{nRankId}
+        select nUserId as userId, sArticle as article, nRankId as rankId, dLastUpdateTime as lastUpdateTime from tArticle where nRankId = #{rankId}
     </select>
 
     <update id="update" parameterType="com.netback.myelementback.Entity.Article">
-        update tArticle set sArticle = #{sArticle}, sChangeUser = #{nUserId}, dChangeDate = getDate() where nRankId = #{nRankId}
+        update tArticle set sArticle = #{article}, sChangeUser = #{userId}, dChangeDate = getDate() where nRankId = #{rankId}
     </update>
 
     <delete id="deleteById" parameterType="int">
-        delete from tArticle where nRankId = #{nRankID}
+        delete from tArticle where nRankId = #{rankID}
     </delete>
 </mapper>

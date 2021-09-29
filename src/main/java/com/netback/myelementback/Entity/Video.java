@@ -4,67 +4,67 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Video implements Serializable {
-    private int nId;
-    private String sVideoName;
-    private String sUserNO;
-    private String sCreateUser;
-    private Date dCreateDate;
-    private int nTag;
-    private String sVideoPath;
+    private int id;
+    private String videoName;
+    private String userNO;
+    private String createUser;
+    private Date createDate;
+    private int tag;
+    private String videoPath;
 
-    public int getnId() {
-        return nId;
+    public int getId() {
+        return id;
     }
 
-    public void setnId(int nId) {
-        this.nId = nId;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getsVideoName() {
-        return sVideoName;
+    public String getVideoName() {
+        return videoName;
     }
 
-    public void setsVideoName(String sVideoName) {
-        this.sVideoName = sVideoName;
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
     }
 
-    public String getsUserNO() {
-        return sUserNO;
+    public String getUserNO() {
+        return userNO;
     }
 
-    public void setsUserNO(String sUserNO) {
-        this.sUserNO = sUserNO;
+    public void setUserNO(String userNO) {
+        this.userNO = userNO;
     }
 
-    public String getsCreateUser() {
-        return sCreateUser;
+    public String getCreateUser() {
+        return createUser;
     }
 
-    public void setsCreateUser(String sCreateUser) {
-        this.sCreateUser = sCreateUser;
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
     }
 
-    public Date getdCreateDate() {
-        return dCreateDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setdCreateDate(Date dCreateDate) {
-        this.dCreateDate = dCreateDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public int getnTag() {
-        return nTag;
+    public int getTag() {
+        return tag;
     }
 
-    public void setnTag(int nTag) {
-        this.nTag = nTag;
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 
-    public String getsVideoPath() {
-        return sVideoPath;
+    public String getVideoPath() {
+        return videoPath;
     }
 
-    public void setsVideoPath(String sVideoPath) {
-        this.sVideoPath = sVideoPath;
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath;
     }
 }

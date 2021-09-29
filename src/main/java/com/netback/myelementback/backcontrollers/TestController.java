@@ -8,7 +8,9 @@ import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /***
@@ -34,10 +36,16 @@ public class TestController {
         List<Article> testlist = new ArrayList<Article>();
 
         Article test = new Article();
-        test.setnUserId(123);
-        test.setsArticle("这是个测试文章");
+        test.setUserId(123);
+        test.setArticle("这是个测试文章");
+        test.setTitle("测试标题");
+        test.setCreateDate(new Date());
 
-        testlist.add(test);
+        Article entity = mapper.getById(1);
+
+        // testlist.add(test);
+
+        testlist.add(entity);
 
         // 附加返回信息
         return new UniformResponseHandler<List>().sendSuccessResponse(testlist);

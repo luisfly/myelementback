@@ -44,7 +44,7 @@ public class UserController {
         }
         // String token = TokenCreator.CreateToken(userNO, password);
 
-        if (entity.getsPassword().equals(password)) {
+        if (entity.getPassword().equals(password)) {
             result.put("code", 20000);
             // 带上 token
             result.put("token", TokenCreator.CreateToken(userNO, password));
@@ -66,13 +66,13 @@ public class UserController {
 
         User entity = userMapper.getUser(userNO);
         // 有相同的记录
-        if (entity.getsUserNO() != null) {
+        if (entity.getUserNO() != null) {
             return false;
         } else {
             // 没有记录，创建
-            entity.setsUserName(userName);
-            entity.setsUserNO(userNO);
-            entity.setsPassword(password);
+            entity.setUserName(userName);
+            entity.setUserNO(userNO);
+            entity.setPassword(password);
             userMapper.insert(entity);
         }
 
@@ -88,8 +88,8 @@ public class UserController {
 
         User entity = userMapper.getById(userId);
 
-        if (entity.getsUserNO() != null) {
-            entity.setsUserName(userName);
+        if (entity.getUserNO() != null) {
+            entity.setUserName(userName);
             userMapper.update(entity);
         } else {
             return false;
@@ -107,8 +107,8 @@ public class UserController {
 
         User entity = userMapper.getById(userId);
 
-        if (entity.getsUserNO() != null) {
-            entity.setsPassword(password);
+        if (entity.getUserNO() != null) {
+            entity.setPassword(password);
             userMapper.update(entity);
         } else {
             return false;

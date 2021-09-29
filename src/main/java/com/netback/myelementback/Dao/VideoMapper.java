@@ -14,10 +14,10 @@ public interface VideoMapper {
 
     /**
      * 根据 ID 获取资源
-     * @param nId
+     * @param id
      * @return
      */
-    public Video getById(int nId);
+    public Video getById(int id);
 
     /**
      * 更新 Resource
@@ -27,8 +27,8 @@ public interface VideoMapper {
 
     /**
      * 根据 id 删除 Resource
-     * @param nId 资源 ID
+     * @param id 资源 ID
      */
-    public void deleteById(int nId);
+    public void deleteById(int id);
 
 }

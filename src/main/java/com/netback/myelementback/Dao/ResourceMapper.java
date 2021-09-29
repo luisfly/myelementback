@@ -13,25 +13,25 @@ public interface ResourceMapper {
      * 新建资源
      * @param resource 资源信息
      */
-    public void insert(Resource resource);
+    public boolean insert(Resource resource);
 
     /**
      * 根据 ID 获取资源
-     * @param nId
+     * @param id
      * @return
      */
-    public Resource getById(int nId);
+    public Resource getById(int id);
 
     /**
      * 更新 Resource
      * @param resource 资源的相关信息
      */
-    public void update(Resource resource);
+    public boolean update(Resource resource);
 
     /**
      * 根据 id 删除 Resource
-     * @param nId 资源 ID
+     * @param id 资源 ID
      */
-    public void deleteById(int nId);
+    public boolean deleteById(int id);
 
 }

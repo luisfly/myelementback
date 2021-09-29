@@ -4,6 +4,10 @@ import com.netback.myelementback.Dao.ArticleMapper;
 import com.netback.myelementback.Dao.UserMapper;
 import com.netback.myelementback.Entity.Article;
 import com.netback.myelementback.Entity.User;
+import com.netback.myelementback.Utils.CodeAndMsg;
+import com.netback.myelementback.Utils.CustResponseEntity;
+import com.netback.myelementback.Utils.UniformResponseHandler;
+import com.netback.myelementback.Utils.UserDefinedException;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +34,14 @@ public class ArticleController {
      * axios 前端传输的 data 会包装到 JSON 内，要使用JSONObject接受
      */
     @PostMapping("/api/saveArticle")
-    public boolean SaveArticle(@RequestBody JSONObject postData) {
+    public CustResponseEntity SaveArticle(@RequestBody JSONObject postData) {
         String article = postData.getAsString("article");
         Number userID = postData.getAsNumber("userID");
         Number rankID = postData.getAsNumber("rankID");
 
-        System.out.println(article);
-        System.out.println(userID);
-        System.out.println(rankID);
+        // System.out.println(article);
+        // System.out.println(userID);
+        // System.out.println(rankID);
 
         Article entity;
         if (rankID != null) {
@@ -46,34 +50,38 @@ public class ArticleController {
             if (entity != null) {
                 Date date = new Date();
 
-                entity.setsArticle(article);
-                entity.setdChangeDate(date);
-                entity.setdLastUpdateTime(date);
+                entity.setArticle(article);
+                entity.setChangeDate(date);
+                entity.setLastUpdateTime(date);
 
                 mapper.insert(entity);
             } else {
                 // 没找到记录，插入
                 entity = new Article();
-                entity.setnUserId(userID.intValue());
-                entity.setsArticle(article);
+                entity.setUserId(userID.intValue());
+                entity.setArticle(article);
                 mapper.insert(entity);
 
             }
         }
 
-        return true;
+        return new UniformResponseHandler<>().sendSuccessResponse();
     }
 
     /**
      * 文章删除
      */
     @PostMapping("/api/delArticle")
-    public boolean DelArticle(@RequestBody JSONObject postData) {
+    public CustResponseEntity DelArticle(@RequestBody JSONObject postData) {
         // Number userID = postData.getAsNumber("userID");
         Number rankID = postData.getAsNumber("rankID");
 
-        mapper.deleteById(rankID.intValue());
+        Boolean sqlResult = mapper.deleteById(rankID.intValue());
 
-        return true;
+        if (!sqlResult) {
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+        }
+
+        return new UniformResponseHandler<>().sendSuccessResponse();
     }
 }

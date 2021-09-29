@@ -7,58 +7,58 @@ import java.util.Date;
 
 public class User implements Serializable {
 
-    private int nUserId;
-    private String sUserNO;
-    private String sUserName;
-    private String sPassword;
-    private Date dLastLoginDate;
-    private Date dCreateDate;
+    private int userId;
+    private String userNO;
+    private String userName;
+    private String password;
+    private Date lastLoginDate;
+    private Date createDate;
 
-    public int getnUserId() {
-        return nUserId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setnUserId(int nUserId) {
-        this.nUserId = nUserId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getsUserNO() {
-        return sUserNO;
+    public String getUserNO() {
+        return userNO;
     }
 
-    public void setsUserNO(String sUserNO) {
-        this.sUserNO = sUserNO;
+    public void setUserNO(String userNO) {
+        this.userNO = userNO;
     }
 
-    public String getsUserName() {
-        return sUserName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setsUserName(String sUserName) {
-        this.sUserName = sUserName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getsPassword() {
-        return sPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setsPassword(String sPassword) {
-        this.sPassword = sPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public Date getdLastLoginDate() {
-        return dLastLoginDate;
+    public Date getLastLoginDate() {
+        return lastLoginDate;
     }
 
-    public void setdLastLoginDate(Date dLastLoginDate) {
-        this.dLastLoginDate = dLastLoginDate;
+    public void setLastLoginDate(Date lastLoginDate) {
+        this.lastLoginDate = lastLoginDate;
     }
 
-    public Date getdCreateDate() {
-        return dCreateDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setdCreateDate(Date dCreateDate) {
-        this.dCreateDate = dCreateDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 }

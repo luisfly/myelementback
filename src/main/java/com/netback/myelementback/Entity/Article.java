@@ -7,76 +7,94 @@ import java.util.Date;
 
 public class Article implements Serializable {
 
-    private int nUserId;
-    private String sArticle;
-    private String sCreateUser;
-    private String sChangeUser;
-    private Date dCreateDate;
-    private Date dChangeDate;
-    private Date dLastUpdateTime;
-    private int nRankID;
+    private int userId;
+    private String article;
+    private String title;
+    private int tag;
+    private String createUser;
+    private String changeUser;
+    private Date createDate;
+    private Date changeDate;
+    private Date lastUpdateTime;
+    private int rankID;
 
-    public int getnUserId() {
-        return nUserId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setnUserId(int nUserId) {
-        this.nUserId = nUserId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getsArticle() {
-        return sArticle;
+    public String getArticle() {
+        return article;
     }
 
-    public void setsArticle(String sArticle) {
-        this.sArticle = sArticle;
+    public void setArticle(String article) {
+        this.article = article;
     }
 
-    public String getsCreateUser() {
-        return sCreateUser;
+    public String getTitle() {
+        return title;
     }
 
-    public void setsCreateUser(String sCreateUser) {
-        this.sCreateUser = sCreateUser;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getsChangeUser() {
-        return sChangeUser;
+    public int getTag() {
+        return tag;
     }
 
-    public void setsChangeUser(String sChangeUser) {
-        this.sChangeUser = sChangeUser;
+    public void setTag(int tag) {
+        this.tag = tag;
     }
 
-    public Date getdCreateDate() {
-        return dCreateDate;
+    public String getCreateUser() {
+        return createUser;
     }
 
-    public void setdCreateDate(Date dCreateDate) {
-        this.dCreateDate = dCreateDate;
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
     }
 
-    public Date getdChangeDate() {
-        return dChangeDate;
+    public String getChangeUser() {
+        return changeUser;
     }
 
-    public void setdChangeDate(Date dChangeDate) {
-        this.dChangeDate = dChangeDate;
+    public void setChangeUser(String changeUser) {
+        this.changeUser = changeUser;
     }
 
-    public Date getdLastUpdateTime() {
-        return dLastUpdateTime;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setdLastUpdateTime(Date dLastUpdateTime) {
-        this.dLastUpdateTime = dLastUpdateTime;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public int getnRankID() {
-        return nRankID;
+    public Date getChangeDate() {
+        return changeDate;
     }
 
-    public void setnRankID(int nRankID) {
-        this.nRankID = nRankID;
+    public void setChangeDate(Date changeDate) {
+        this.changeDate = changeDate;
+    }
+
+    public Date getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(Date lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public int getRankID() {
+        return rankID;
+    }
+
+    public void setRankID(int rankID) {
+        this.rankID = rankID;
     }
 }

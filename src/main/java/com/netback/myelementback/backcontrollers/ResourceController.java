@@ -2,6 +2,10 @@ package com.netback.myelementback.backcontrollers;
 
 import com.netback.myelementback.Dao.ResourceMapper;
 import com.netback.myelementback.Entity.Resource;
+import com.netback.myelementback.Utils.CodeAndMsg;
+import com.netback.myelementback.Utils.CustResponseEntity;
+import com.netback.myelementback.Utils.UniformResponseHandler;
+import com.netback.myelementback.Utils.UserDefinedException;
 import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -24,7 +28,7 @@ public class ResourceController {
      * @return
      */
     @PostMapping("/api/UploadResource")
-    public boolean UploadResource(@RequestBody JSONObject postData) {
+    public CustResponseEntity UploadResource(@RequestBody JSONObject postData) {
         String resourceName = postData.getAsString("resourceName");
         String describe = postData.getAsString("describe");
         String resTag = postData.getAsString("resTag");
@@ -32,14 +36,14 @@ public class ResourceController {
         Number release = postData.getAsNumber("release");
 
         Resource entity = new Resource();
-        entity.setsResourceName(resourceName);
-        entity.setnCategory(category.intValue());
-        entity.setsDescribe(describe);
-        entity.setsResTag(resTag);
-        entity.setnRelease(release.intValue());
+        entity.setResourceName(resourceName);
+        entity.setCategory(category.intValue());
+        entity.setDescribe(describe);
+        entity.setResTag(resTag);
+        entity.setRelease(release.intValue());
 
         // 保存路径由后台保存返回
-        entity.setsPath("测试路径");
+        entity.setPath("测试路径");
 
         /* System.out.println("resouceName: " + resourceName);
         System.out.println("describe: " + describe);
@@ -47,9 +51,13 @@ public class ResourceController {
         System.out.println("category: " + category);
         System.out.println("release: " + release); */
 
-        mapper.insert(entity);
+        Boolean sqlResult = mapper.insert(entity);
 
-        return true;
+        if (!sqlResult) {
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+        }
+
+        return new UniformResponseHandler<>().sendSuccessResponse();
     }
 
     /**

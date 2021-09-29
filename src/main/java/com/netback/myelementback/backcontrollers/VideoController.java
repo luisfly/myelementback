@@ -31,16 +31,16 @@ public class VideoController {
 
 
         Video video = new Video();
-        video.setsVideoName(videoName);
-        video.setsVideoPath(videoPath);
-        video.setsUserNO(userNO);
-        video.setsCreateUser(createUser);
+        video.setVideoName(videoName);
+        video.setVideoPath(videoPath);
+        video.setUserNO(userNO);
+        video.setCreateUser(createUser);
 
         SimpleDateFormat change = new SimpleDateFormat("YYYY-MM-dd");
 
         try {
             Date createDate = change.parse(postData.getAsString("CreateDate"));
-            video.setdCreateDate(createDate);
+            video.setCreateDate(createDate);
             mapper.insert(video);
         } catch (Exception e) {
             e.printStackTrace();

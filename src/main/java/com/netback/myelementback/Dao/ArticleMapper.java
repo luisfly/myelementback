@@ -8,13 +8,13 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface ArticleMapper {
 
-    @Select("select * from tArticle where nRankID = #{nRankID}")
-    Article getArticle(@Param("nRankID") int nRankID);
+    @Select("select * from tArticle where nRankID = #{rankID}")
+    Article getArticle(@Param("rankID") int rankID);
 
-    public void insert(Article article);
-    public Article getById(int nRankID);
-    public void update(Article article);
-    public void deleteById(int nRankID);
+    public boolean insert(Article article);
+    public Article getById(int rankID);
+    public boolean update(Article article);
+    public boolean deleteById(int rankID);
 
 
 }
