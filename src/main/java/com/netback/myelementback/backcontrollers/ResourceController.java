@@ -54,7 +54,7 @@ public class ResourceController {
         Boolean sqlResult = mapper.insert(entity);
 
         if (!sqlResult) {
-            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.REPEATERROR));
         }
 
         return new UniformResponseHandler<>().sendSuccessResponse();
@@ -65,22 +65,26 @@ public class ResourceController {
      * @return
      */
     @PostMapping("/api/DeleteResource")
-    public boolean DeleteResource(@RequestBody JSONObject postData) {
+    public CustResponseEntity DeleteResource(@RequestBody JSONObject postData) {
         Number resourceId = postData.getAsNumber("ResourceId");
 
         // Resource entity = new Resource();
-        mapper.deleteById(resourceId.intValue());
+        Boolean sqlResult = mapper.deleteById(resourceId.intValue());
 
-        return true;
+        if(!sqlResult) {
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+        }
+
+        return new UniformResponseHandler<>().sendSuccessResponse();
     }
 
     @PostMapping("/api/RadioUpload")
-    public String UploadRadio(@RequestBody JSONObject postData) {
-        return "";
+    public CustResponseEntity UploadRadio(@RequestBody JSONObject postData) {
+        return new UniformResponseHandler<>().sendSuccessResponse();
     }
 
     @PostMapping("/api/RadioDel")
-    public String RadioDel(@RequestBody JSONObject postData) {
-        return "";
+    public CustResponseEntity RadioDel(@RequestBody JSONObject postData) {
+        return new UniformResponseHandler<>().sendSuccessResponse();
     }
 }

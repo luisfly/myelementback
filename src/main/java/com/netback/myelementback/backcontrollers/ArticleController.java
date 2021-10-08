@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 前端数据传输 api 处理控制器, 文章相关的 api
@@ -38,10 +40,6 @@ public class ArticleController {
         String article = postData.getAsString("article");
         Number userID = postData.getAsNumber("userID");
         Number rankID = postData.getAsNumber("rankID");
-
-        // System.out.println(article);
-        // System.out.println(userID);
-        // System.out.println(rankID);
 
         Article entity;
         if (rankID != null) {
@@ -83,5 +81,27 @@ public class ArticleController {
         }
 
         return new UniformResponseHandler<>().sendSuccessResponse();
+    }
+
+    /**
+     * 查找文章
+     */
+    @PostMapping("/api/getArticle")
+    public CustResponseEntity GetArticle(@RequestBody JSONObject postData) {
+        Number rankID = postData.getAsNumber("rankID");
+
+        Article article = mapper.getById(rankID.intValue());
+
+        List datalist = new ArrayList<Article>();
+
+        datalist.add(article);
+
+        System.out.println(article.getArticle());
+
+        if (article == null) {
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+        }
+
+        return new UniformResponseHandler<Article>().sendSuccessResponse(article);
     }
 }

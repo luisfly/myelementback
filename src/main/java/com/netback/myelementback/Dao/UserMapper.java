@@ -11,9 +11,9 @@ public interface UserMapper {
     @Select("select * from tUser where sUserNO = #{userNO}")
     User getUser(@Param("userNO") String userNO);
 
-    public void insert(User user);
+    public boolean insert(User user);
     public User getById(int id);
-    public void update(User user);
-    public void deleteById(int id);
+    public boolean update(User user);
+    public boolean deleteById(int id);
 
 }

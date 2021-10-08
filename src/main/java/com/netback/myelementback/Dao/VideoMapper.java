@@ -10,7 +10,7 @@ public interface VideoMapper {
      * 新建资源
      * @param video 资源信息
      */
-    public void insert(Video video);
+    public boolean insert(Video video);
 
     /**
      * 根据 ID 获取资源
@@ -23,12 +23,12 @@ public interface VideoMapper {
      * 更新 Resource
      * @param video 资源的相关信息
      */
-    public void update(Video video);
+    public boolean update(Video video);
 
     /**
      * 根据 id 删除 Resource
      * @param id 资源 ID
      */
-    public void deleteById(int id);
+    public boolean deleteById(int id);
 
 }
