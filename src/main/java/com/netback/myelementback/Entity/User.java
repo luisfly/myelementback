@@ -13,6 +13,7 @@ public class User implements Serializable {
     private String password;
     private Date lastLoginDate;
     private Date createDate;
+    private String token;
 
     public int getUserId() {
         return userId;
@@ -60,5 +61,13 @@ public class User implements Serializable {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

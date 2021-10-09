@@ -42,8 +42,9 @@ public class ArticleController {
         Number rankID = postData.getAsNumber("rankID");
 
         Article entity;
+        boolean sqlResult = true;
         if (rankID != null) {
-            entity = mapper.getArticle(rankID.intValue());
+            entity = mapper.getById(rankID.intValue());
             // 找到记录，修改
             if (entity != null) {
                 Date date = new Date();
@@ -52,15 +53,20 @@ public class ArticleController {
                 entity.setChangeDate(date);
                 entity.setLastUpdateTime(date);
 
-                mapper.insert(entity);
+                sqlResult = mapper.update(entity);
+
             } else {
                 // 没找到记录，插入
                 entity = new Article();
                 entity.setUserId(userID.intValue());
                 entity.setArticle(article);
-                mapper.insert(entity);
+                sqlResult =mapper.insert(entity);
 
             }
+        }
+
+        if (!sqlResult) {
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
         }
 
         return new UniformResponseHandler<>().sendSuccessResponse();
@@ -96,12 +102,11 @@ public class ArticleController {
 
         datalist.add(article);
 
-        System.out.println(article.getArticle());
-
         if (article == null) {
             return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
         }
 
-        return new UniformResponseHandler<Article>().sendSuccessResponse(article);
+        return new UniformResponseHandler<List>().sendSuccessResponse(datalist);
     }
 }
+

@@ -2,7 +2,7 @@ package com.netback.myelementback.backcontrollers;
 
 import com.netback.myelementback.Dao.UserMapper;
 import com.netback.myelementback.Entity.User;
-import com.netback.myelementback.Utils.TokenCreator;
+import com.netback.myelementback.Utils.*;
 import net.minidev.json.JSONObject;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,14 @@ public class UserController {
     @Autowired
     private UserMapper userMapper;
 
-    // 用户登录
+    /**
+     * 用户登录
+     * @param postData 用户登录信息
+     * @return 登录结果
+     */
     @ResponseBody
     @PostMapping("/api/login")
-    public String Login(@RequestBody JSONObject postData) {
+    public CustResponseEntity Login(@RequestBody JSONObject postData) {
         String userNO = postData.getAsString("userNO");
         String password = postData.getAsString("password");
         String token = postData.getAsString("token");
@@ -34,12 +38,12 @@ public class UserController {
                 // 带上 token
                 result.put("token", token);
                 result.put("message", "token 验证成功");
-                return result.toJSONString();
+                return new UniformResponseHandler<>().sendSuccessResponse();
             } else {
                 // token 过期返回错误码，提示
                 result.put("code", 50001);
                 result.put("message", "登录已过期，请重新登录");
-                return result.toJSONString();
+                return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.ILLEAGETOKEN));
             }
         }
         // String token = TokenCreator.CreateToken(userNO, password);
@@ -48,15 +52,19 @@ public class UserController {
             result.put("code", 20000);
             // 带上 token
             result.put("token", TokenCreator.CreateToken(userNO, password));
-            return result.toJSONString();
+            return new UniformResponseHandler<>().sendSuccessResponse();
         }
 
         result.put("code", 20001);
         result.put("message", "账号密码有误");
-        return result.toJSONString();
+        return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.PASSWORDERROR));
     }
 
-    // 用户创建
+    /**
+     * 创建用户
+     * @param postData 用户信息
+     * @return 创建结果
+     */
     @PostMapping("/api/createUser")
     public boolean CreateUser(@RequestBody JSONObject postData) {
         User user = new User();
@@ -79,7 +87,11 @@ public class UserController {
         return true;
     }
 
-    // 修改用户名
+    /**
+     * 修改用户名
+     * @param postData
+     * @return
+     */
     @PostMapping("/api/modifyName")
     public boolean ModifyUserName(@RequestBody JSONObject postData) {
         // 从 JsonObject 获取信息
@@ -98,7 +110,11 @@ public class UserController {
         return true;
     }
 
-    // 修改密码
+    /**
+     * 修改密码
+     * @param postData
+     * @return
+     */
     @PostMapping("/api/modifyPassword")
     public boolean ModifyPassword(@RequestBody JSONObject postData) {
         // 从 JsonObject 获取信息

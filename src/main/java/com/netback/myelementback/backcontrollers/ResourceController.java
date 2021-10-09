@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /***
  * 资源上传 api
  */
@@ -23,9 +26,9 @@ public class ResourceController {
     private ResourceMapper mapper;
 
     /**
-     *
-     * @param postData
-     * @return
+     * 上传资源
+     * @param postData 上传信息的 json
+     * @return 上传结果返回
      */
     @PostMapping("/api/UploadResource")
     public CustResponseEntity UploadResource(@RequestBody JSONObject postData) {
@@ -45,12 +48,6 @@ public class ResourceController {
         // 保存路径由后台保存返回
         entity.setPath("测试路径");
 
-        /* System.out.println("resouceName: " + resourceName);
-        System.out.println("describe: " + describe);
-        System.out.println("resTag: " + resTag);
-        System.out.println("category: " + category);
-        System.out.println("release: " + release); */
-
         Boolean sqlResult = mapper.insert(entity);
 
         if (!sqlResult) {
@@ -62,7 +59,8 @@ public class ResourceController {
 
     /**
      * 删除资源
-     * @return
+     * @param postData
+     * @return 上传结果返回
      */
     @PostMapping("/api/DeleteResource")
     public CustResponseEntity DeleteResource(@RequestBody JSONObject postData) {
@@ -78,13 +76,23 @@ public class ResourceController {
         return new UniformResponseHandler<>().sendSuccessResponse();
     }
 
-    @PostMapping("/api/RadioUpload")
-    public CustResponseEntity UploadRadio(@RequestBody JSONObject postData) {
-        return new UniformResponseHandler<>().sendSuccessResponse();
-    }
+    /**
+     * 根据id获取资源
+     * @param postData 包含资源id的json
+     * @return 资源的list
+     */
+    @PostMapping("/api/GetResource")
+    public CustResponseEntity GetResource(@RequestBody JSONObject postData) {
+        Number resourceId = postData.getAsNumber("ResourceId");
 
-    @PostMapping("/api/RadioDel")
-    public CustResponseEntity RadioDel(@RequestBody JSONObject postData) {
-        return new UniformResponseHandler<>().sendSuccessResponse();
+        Resource data = mapper.getById(resourceId.intValue());
+        List<Resource> datalist = new ArrayList<Resource>();
+
+        datalist.add(data);
+        if (data == null) {
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+        }
+
+        return new UniformResponseHandler<List>().sendSuccessResponse(datalist);
     }
 }

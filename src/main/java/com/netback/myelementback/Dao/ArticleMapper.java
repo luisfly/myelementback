@@ -8,8 +8,8 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface ArticleMapper {
 
-    @Select("select * from tArticle where nRankID = #{rankID}")
-    public Article getArticle(@Param("rankID") int rankID);
+    //@Select("select * from tArticle where nRankID = #{rankID}")
+    //public Article getArticle(@Param("rankID") int rankID);
 
     public boolean insert(Article article);
     public Article getById(int rankID);
