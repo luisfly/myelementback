@@ -9,10 +9,11 @@ import org.apache.ibatis.annotations.Select;
 public interface UserMapper {
 
     @Select("select * from tUser where sUserNO = #{userNO}")
-    User getUser(@Param("userNO") String userNO);
+    User getUser(@Param("userNO") String userNo);
 
     public boolean insert(User user);
     public User getById(int id);
+    public User getByUserNO(String userNO);
     public boolean update(User user);
     public boolean deleteById(int id);
 

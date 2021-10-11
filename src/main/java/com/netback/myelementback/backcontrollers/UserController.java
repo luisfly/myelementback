@@ -29,7 +29,7 @@ public class UserController {
         String password = postData.getAsString("password");
         String token = postData.getAsString("token");
         // 工具创建
-        User entity = userMapper.getUser(userNO);
+        User entity = userMapper.getByUserNO(userNO);
         JSONObject result = new JSONObject();
 
         if (token != null && !token.equals("")) {
@@ -38,25 +38,27 @@ public class UserController {
                 // 带上 token
                 result.put("token", token);
                 result.put("message", "token 验证成功");
+
+                System.out.println("token1");
                 return new UniformResponseHandler<>().sendSuccessResponse();
             } else {
                 // token 过期返回错误码，提示
                 result.put("code", 50001);
                 result.put("message", "登录已过期，请重新登录");
+
+                System.out.println("token2");
                 return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.ILLEAGETOKEN));
             }
         }
-        // String token = TokenCreator.CreateToken(userNO, password);
 
+        // 正常登录
         if (entity.getPassword().equals(password)) {
-            result.put("code", 20000);
-            // 带上 token
-            result.put("token", TokenCreator.CreateToken(userNO, password));
-            return new UniformResponseHandler<>().sendSuccessResponse();
+            entity.setToken(TokenCreator.CreateToken(userNO, password));
+            return new UniformResponseHandler<User>().sendSuccessResponse(entity);
         }
 
-        result.put("code", 20001);
-        result.put("message", "账号密码有误");
+        //result.put("code", 20001);
+        //result.put("message", "账号密码有误");
         return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.PASSWORDERROR));
     }
 
@@ -66,7 +68,7 @@ public class UserController {
      * @return 创建结果
      */
     @PostMapping("/api/createUser")
-    public boolean CreateUser(@RequestBody JSONObject postData) {
+    public CustResponseEntity CreateUser(@RequestBody JSONObject postData) {
         User user = new User();
         String userNO = postData.getAsString("userNO");
         String password = postData.getAsString("password");
@@ -75,7 +77,7 @@ public class UserController {
         User entity = userMapper.getUser(userNO);
         // 有相同的记录
         if (entity.getUserNO() != null) {
-            return false;
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.REPEATERROR));
         } else {
             // 没有记录，创建
             entity.setUserName(userName);
@@ -83,8 +85,7 @@ public class UserController {
             entity.setPassword(password);
             userMapper.insert(entity);
         }
-
-        return true;
+        return new UniformResponseHandler<>().sendSuccessResponse();
     }
 
     /**
@@ -93,7 +94,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/api/modifyName")
-    public boolean ModifyUserName(@RequestBody JSONObject postData) {
+    public CustResponseEntity ModifyUserName(@RequestBody JSONObject postData) {
         // 从 JsonObject 获取信息
         int userId = postData.getAsNumber("userId").intValue();
         String userName = postData.getAsString("userName");
@@ -104,10 +105,10 @@ public class UserController {
             entity.setUserName(userName);
             userMapper.update(entity);
         } else {
-            return false;
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
         }
 
-        return true;
+        return new UniformResponseHandler<>().sendSuccessResponse();
     }
 
     /**
@@ -116,7 +117,7 @@ public class UserController {
      * @return
      */
     @PostMapping("/api/modifyPassword")
-    public boolean ModifyPassword(@RequestBody JSONObject postData) {
+    public CustResponseEntity ModifyPassword(@RequestBody JSONObject postData) {
         // 从 JsonObject 获取信息
         int userId = postData.getAsNumber("userId").intValue();
         String password = postData.getAsString("password");
@@ -127,14 +128,18 @@ public class UserController {
             entity.setPassword(password);
             userMapper.update(entity);
         } else {
-            return false;
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
         }
 
-        return true;
+        return new UniformResponseHandler<>().sendSuccessResponse();
 
     }
 
-    // 获取当前用户完整信息
+    /**
+     * 获取当前用户完整信息
+     * @param postData
+     * @return
+     */
     @PostMapping("/api/getUser")
     public User getUser(@RequestBody JSONObject postData) {
         // 从 JsonObject 获取信息
@@ -145,15 +150,23 @@ public class UserController {
         return userMapper.getById(userId);
     }
 
-    // 删除用户
+    /**
+     * 删除用户
+     * @param postData
+     * @return
+     */
     @PostMapping("/api/deleteUser")
-    public boolean deleteUser(@RequestBody JSONObject postData) {
+    public CustResponseEntity deleteUser(@RequestBody JSONObject postData) {
         // 从 JSONObject 获取信息
         int userId = postData.getAsNumber("userId").intValue();
 
-        userMapper.deleteById(userId);
+        Boolean sqlResult = userMapper.deleteById(userId);
 
-        return true;
+        if (!sqlResult) {
+            return new UniformResponseHandler<>().sendErrorResponse_UserDefined(new UserDefinedException(CodeAndMsg.SQLIDNOTEXIST));
+        }
+
+        return new UniformResponseHandler<>().sendSuccessResponse();
 
     }
 

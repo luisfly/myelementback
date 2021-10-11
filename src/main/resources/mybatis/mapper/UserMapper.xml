@@ -8,7 +8,11 @@
     </insert>
 
     <select id="getById" parameterType="int" resultType="com.netback.myelementback.Entity.User">
-        select sUserId, sUserName, dLastLoginDate from tUser where sUserId = #{id}
+        select nUserId as userId, sUserName as userName, dLastLoginDate as lastLoginDate from tUser where nUserId = #{id}
+    </select>
+
+    <select id="getByUserNO" parameterType="String" resultType="com.netback.myelementback.Entity.User">
+        select nUserId as userId, sUserName as userName, dLastLoginDate as lastLoginDate, sPassword as password from tUser where sUserNO = #{userNO}
     </select>
 
     <update id="update" parameterType="com.netback.myelementback.Entity.User">
